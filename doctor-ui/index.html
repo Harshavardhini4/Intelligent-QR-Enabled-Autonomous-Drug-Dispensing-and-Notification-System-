@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Doctor Prescription → QR</title>
 
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
@@ -11,8 +11,9 @@
     body {
       font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
-      padding: 30px;
+      padding: 20px;
       min-height: 100vh;
+      overflow: hidden; /* NO vertical scrolling */
 
       background:
         linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)),
@@ -40,6 +41,7 @@
       backdrop-filter: blur(6px);
       border-radius: 14px;
       padding: 15px;
+      border: 2px solid #cbd5e1;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
     }
 
@@ -100,7 +102,7 @@
       box-shadow: none;
     }
 
-    /* Preview same width as buttons */
+    /* Preview box */
     #preview {
       margin-top: 15px;
       font-style: italic;
@@ -110,18 +112,17 @@
       width: 100%;
     }
 
+    /* QR box (SAME SIZE AS PREVIEW) */
     #qr-box {
-      margin-top: 20px;
-      padding: 30px;
+      margin-top: 15px;
+      max-width: 600px;
+      width: 100%;
+      min-height: 220px;
 
-      width: 560px;        
-      min-height: 200px;   
-
-     display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     canvas {
       border-radius: 10px;
@@ -164,7 +165,7 @@
 
 <!-- QR -->
 <div id="qr-box">
-  <canvas id="qr-code" width="260" height="260"></canvas>
+  <canvas id="qr-code" width="200" height="200"></canvas>
 </div>
 
 <script>
@@ -248,7 +249,7 @@ function generateQR(payload) {
   QRCode.toCanvas(
     document.getElementById("qr-code"),
     JSON.stringify(payload),
-    { width: 260 }
+    { width: 200 }
   );
 }
 
@@ -258,9 +259,10 @@ function clearAll() {
   document.getElementById("patient-email").value = "";
   document.getElementById("preview-text").textContent = "";
   const ctx = document.getElementById("qr-code").getContext("2d");
-  ctx.clearRect(0, 0, 260, 260);
+  ctx.clearRect(0, 0, 200, 200);
 }
 </script>
 
 </body>
 </html>
+
